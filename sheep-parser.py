@@ -24,6 +24,7 @@ def parse_log_file(filename):
             rtt_samples.append({
                 "rttTicks": int(re.search('\s\-?\d+\s', lines[line_index])[0].strip()),
                 "distance": float(re.search('\s\d+.\d+\s', lines[line_index])[0].strip()),
+                "rssi": int(re.findall('\s\-?\d+\s', lines[line_index])[1].strip())
             })
 
             line_index += 1
