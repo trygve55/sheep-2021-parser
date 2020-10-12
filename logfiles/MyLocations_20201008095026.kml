@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<Folder>
+<name>MyLocations 20201008 095026</name>
+<Placemark>
+	<TimeStamp>
+		<when>2020-10-08T09:47:43Z</when>
+	</TimeStamp>
+	<name><![CDATA[My Location @ 09:27 08-Oct-20 1]]></name>
+	<ExtendedData xmlns:gpstestkml="http://www.chartcross.co.uk/XML/GPXDATA/1/0">
+		<gpstestkml:accuracy>5.4</gpstestkml:accuracy>
+	</ExtendedData>
+	<Point>
+		<coordinates>10.399520,63.417260,70.0</coordinates>
+	</Point>
+</Placemark>
+<Placemark>
+	<TimeStamp>
+		<when>2020-10-08T09:41:21Z</when>
+	</TimeStamp>
+	<name><![CDATA[My Location @ 09:41 08-Oct-20 2]]></name>
+	<ExtendedData xmlns:gpstestkml="http://www.chartcross.co.uk/XML/GPXDATA/1/0">
+		<gpstestkml:accuracy>3.2</gpstestkml:accuracy>
+	</ExtendedData>
+	<Point>
+		<coordinates>10.399531,63.417352,64.1</coordinates>
+	</Point>
+</Placemark>
+<Placemark>
+	<TimeStamp>
+		<when>2020-10-08T09:42:40Z</when>
+	</TimeStamp>
+	<name><![CDATA[My Location @ 09:42 08-Oct-20 3]]></name>
+	<ExtendedData xmlns:gpstestkml="http://www.chartcross.co.uk/XML/GPXDATA/1/0">
+		<gpstestkml:accuracy>3.2</gpstestkml:accuracy>
+	</ExtendedData>
+	<Point>
+		<coordinates>10.400280,63.416923,70.9</coordinates>
+	</Point>
+</Placemark>
+<Placemark>
+	<TimeStamp>
+		<when>2020-10-08T09:45:01Z</when>
+	</TimeStamp>
+	<name><![CDATA[My Location @ 09:44 08-Oct-20 4]]></name>
+	<ExtendedData xmlns:gpstestkml="http://www.chartcross.co.uk/XML/GPXDATA/1/0">
+		<gpstestkml:accuracy>3.2</gpstestkml:accuracy>
+	</ExtendedData>
+	<Point>
+		<coordinates>10.400752,63.416683,67.7</coordinates>
+	</Point>
+</Placemark>
+<Placemark>
+	<TimeStamp>
+		<when>2020-10-08T09:48:03Z</when>
+	</TimeStamp>
+	<name><![CDATA[My Location @ 09:33 08-Oct-20 5]]></name>
+	<ExtendedData xmlns:gpstestkml="http://www.chartcross.co.uk/XML/GPXDATA/1/0">
+		<gpstestkml:accuracy>3.2</gpstestkml:accuracy>
+	</ExtendedData>
+	<Point>
+		<coordinates>10.401405,63.416313,76.4</coordinates>
+	</Point>
+</Placemark>
+<Placemark>
+	<TimeStamp>
+		<when>2020-10-08T09:49:39Z</when>
+	</TimeStamp>
+	<name><![CDATA[My Location @ 09:49 08-Oct-20 Drone]]></name>
+	<ExtendedData xmlns:gpstestkml="http://www.chartcross.co.uk/XML/GPXDATA/1/0">
+		<gpstestkml:accuracy>3.2</gpstestkml:accuracy>
+	</ExtendedData>
+	<Point>
+		<coordinates>10.398602,63.417857,69.6</coordinates>
+	</Point>
+</Placemark>
+</Folder>
+</Document>
+</kml>
