@@ -6,7 +6,9 @@ pp = pprint.PrettyPrinter(indent=4, depth=2)
 
 
 def rtt_distance_meters(ticks):
-    max(0.0, (299.792458 * (ticks / 16.0) / 2.0))
+    """Calculates the distance the signal traveled by using Round-Trip delay Time given in ticks."""
+
+    return max(0.0, (299.792458 * (ticks / 16.0) / 2.0))
 
 
 def random_n_samples(samples, n, seed=None):
@@ -14,6 +16,7 @@ def random_n_samples(samples, n, seed=None):
 
 
 def parse_log_file(filename):
+    """Parses a terminal output logfile from the sheep-2021 project and returns a list containing all measurements."""
 
     parse_results = []
 

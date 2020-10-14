@@ -8,6 +8,8 @@ pp = pprint.PrettyPrinter(indent=4)
 
 
 def parse_kml_file(filename):
+    """Parses a kml file into a list of points that can be used with GeoPy."""
+
     kml_file = path.join(filename)
 
     points = []
@@ -16,7 +18,7 @@ def parse_kml_file(filename):
         doc = parser.parse(f).getroot()
         for e in doc.findall('.//{http://www.opengis.net/kml/2.2}Placemark'):
             long, lat, height = e["Point"]["coordinates"].text.split(',')
-            points.append(Point(longitude=long, latitude=lat, altitude=str(float(height) / 1000)))
+            points.append(Point(longitude=long, latitude=lat, altitude=str(float(height) / 1000))) # Workaround to make it parse meter as meters instead of km.
 
     return points
 
