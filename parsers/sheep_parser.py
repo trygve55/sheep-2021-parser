@@ -27,6 +27,8 @@ def parse_log_file(filename):
         if "Scanning... [Round" not in lines[line_index]:
             continue
 
+        scan_label = lines[line_index].split('[', 1)[1].split(']')[0]
+
         line_index += 3
 
         rtt_samples = []
@@ -40,7 +42,7 @@ def parse_log_file(filename):
 
             line_index += 1
 
-        if line_index >= len(lines):
+        if line_index >= len(lines) or "packets received" not in lines[line_index]:
             continue
 
         received_packets = int(re.findall('\s\d+\s', lines[line_index])[0].strip())
@@ -54,6 +56,7 @@ def parse_log_file(filename):
         average_rssi = sum([i['rssi'] for i in rtt_samples]) / len(rtt_samples)
 
         parse_results.append({
+            'label': scan_label,
             'rttSamples': rtt_samples,
             'average_distance': average_distance,
             'minimum_distance': minimum_distance,
