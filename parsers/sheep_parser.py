@@ -2,7 +2,7 @@ import sys
 import re
 import pprint
 
-pp = pprint.PrettyPrinter(indent=4, depth=2)
+pp = pprint.PrettyPrinter(indent=4, depth=1)
 
 
 def rtt_distance_meters(ticks):
@@ -15,43 +15,58 @@ def random_n_samples(samples, n, seed=None):
     pass
 
 
+def read_line(ser, print_input=False):
+    line = str(ser.readline())
+    if print_input:
+        print(line)
+    return line
+
+
 def parse_log_file(filename):
+    file = open(filename, 'r')
+    return parse_log(file)
+
+
+def parse_log(file, print_input=False):
     """Parses a terminal output logfile from the sheep-2021 project and returns a list containing all measurements."""
 
     parse_results = []
 
-    file = open(filename, 'r')
-    lines = file.readlines()
+    line = " "
 
-    for line_index in range(len(lines)):
-        if "Scanning... [Round" not in lines[line_index]:
+    while line != "":
+        line = read_line(file, print_input=print_input)
+
+        if "Scanning... [Round" not in line:
             continue
 
-        scan_label = lines[line_index].split('[', 1)[1].split(']')[0]
+        scan_label = line.split('[', 1)[1].split(']')[0]
 
-        line_index += 3
+        line = read_line(file, print_input=print_input)
+        line = read_line(file, print_input=print_input)
+        line = read_line(file, print_input=print_input)
 
         rtt_samples = []
 
-        while line_index < len(lines) and "RTT ticks" in lines[line_index]:
+        while "RTT ticks" in line:
             rtt_samples.append({
-                "rttTicks": int(re.search('\s\-?\d+\s', lines[line_index])[0].strip()),
-                "distance": float(re.search('\s\d+.\d+\s', lines[line_index])[0].strip()),
-                "rssi": int(re.findall('\s\-?\d+\s', lines[line_index])[1].strip())
+                "rttTicks": int(re.search('\s\-?\d+\s', line)[0].strip()),
+                "distance": float(re.search('\s\d+.\d+\s', line)[0].strip()),
+                "rssi": int(re.findall('\s\-?\d+\s', line)[1].strip())
             })
 
-            line_index += 1
+            line = read_line(file, print_input=print_input)
 
-        if line_index >= len(lines) or "packets received" not in lines[line_index]:
+        if "packets received" not in line:
             continue
 
-        received_packets = int(re.findall('\s\d+\s', lines[line_index])[0].strip())
-        total_packets = int(re.findall('\s\d+\s', lines[line_index])[1].strip())
+        received_packets = int(re.findall('\s\d+\s', line)[0].strip())
+        total_packets = int(re.findall('\s\d+\s', line)[1].strip())
         packet_loss = 1 - received_packets / total_packets
-        line_index += 1
-        average_distance = float(re.search('\s\d+.\d+\s', lines[line_index])[0].strip())
-        line_index += 1
-        minimum_distance = float(re.search('\s\d+.\d+\s', lines[line_index])[0].strip())
+        line = read_line(file, print_input=print_input)
+        average_distance = float(re.search('\s\d+.\d+\s', line)[0].strip())
+        line = read_line(file, print_input=print_input)
+        minimum_distance = float(re.search('\s\d+.\d+\s', line)[0].strip())
 
         average_rssi = sum([i['rssi'] for i in rtt_samples]) / len(rtt_samples)
 
@@ -65,6 +80,8 @@ def parse_log_file(filename):
             'packet_loss': packet_loss,
             'average_rssi': average_rssi
         })
+
+        pp.pprint(parse_results[-1])
 
     return parse_results
 
