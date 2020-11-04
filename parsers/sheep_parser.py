@@ -11,10 +11,6 @@ def rtt_distance_meters(ticks):
     return max(0.0, (299.792458 * (ticks / 16.0) / 2.0))
 
 
-def random_n_samples(samples, n, seed=None):
-    pass
-
-
 def read_line(ser, print_input=False):
     line = str(ser.readline())
     if print_input:
@@ -27,10 +23,8 @@ def parse_log_file(filename):
     return parse_log(file)
 
 
-def parse_log(file, print_input=False):
+def parse_log(file, print_input=False, parse_results=[]):
     """Parses a terminal output logfile from the sheep-2021 project and returns a list containing all measurements."""
-
-    parse_results = []
 
     line = " "
 
@@ -81,8 +75,6 @@ def parse_log(file, print_input=False):
             'average_rssi': average_rssi
         })
 
-        pp.pprint(parse_results[-1])
-
     return parse_results
 
 
@@ -96,5 +88,3 @@ if __name__ == '__main__':
 
     results = parse_log_file(filename)
     pp.pprint(results)
-
-    random_n_samples(results, 100)
