@@ -1,0 +1,14 @@
+table, th, td {
+  border: 1px solid black;
+}
+
+#log {
+  width: auto;
+  display: inline-block;
+}
+
+#state {
+  width: 200px;
+  display: inline-block;
+  float:left;
+}

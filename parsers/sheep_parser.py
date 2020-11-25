@@ -23,31 +23,46 @@ def parse_log_file(filename):
     return parse_log(file)
 
 
-def parse_log(file, print_input=False, parse_results=[]):
+def parse_log(file, print_input=False, parse_results=[], operation_state={}):
     """Parses a terminal output logfile from the sheep-2021 project and returns a list containing all measurements."""
 
     line = " "
 
     while line != "":
         line = read_line(file, print_input=print_input)
+        operation_state["state"] = "idle"
+        operation_state["receivedRtt"] = 0
+        operation_state["device"] = "NA"
 
         if "Scanning... [Round" not in line:
             continue
 
+        operation_state["state"] = "scanning"
+
         scan_label = line.split('[', 1)[1].split(']')[0]
 
         line = read_line(file, print_input=print_input)
+        if "Found" not in line:
+            continue
+        device_mac = str(re.search('([0-9A-Fa-f]{2}:?){6}', line)[0])
+        operation_state["state"] = "found"
+        operation_state["device"] = device_mac
+
         line = read_line(file, print_input=print_input)
-        line = read_line(file, print_input=print_input)
+        if "Connected" not in line:
+            continue
+        operation_state["state"] = "connected"
 
         rtt_samples = []
-
+        line = read_line(file, print_input=print_input)
         while "RTT ticks" in line:
             rtt_samples.append({
                 "rttTicks": int(re.search('\s\-?\d+\s', line)[0].strip()),
                 "distance": float(re.search('\s\d+.\d+\s', line)[0].strip()),
                 "rssi": int(re.findall('\s\-?\d+\s', line)[1].strip())
             })
+
+            operation_state["receivedRtt"] += 1
 
             line = read_line(file, print_input=print_input)
 
@@ -72,7 +87,8 @@ def parse_log(file, print_input=False, parse_results=[]):
             'received_packets': received_packets,
             'total_packets': total_packets,
             'packet_loss': packet_loss,
-            'average_rssi': average_rssi
+            'average_rssi': average_rssi,
+            'device_mac': device_mac
         })
 
     return parse_results
